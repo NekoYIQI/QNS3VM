@@ -818,13 +818,14 @@ class RBFKernel():
         """
         Computes the kernel matrix
         """
-        logging.debug("Starting RBF Kernel Matrix Computation...")
+        print("Starting RBF Kernel Matrix Computation...")
         self._data1 = mat(data1)
         self._data2 = mat(data2)
         assert self._data1.shape[1] == (self._data2.T).shape[0]
         self._dim1 = len(data1)
         self._dim2 = len(data2)
         self._symmetric = symmetric
+        print("Symmetric: ", symmetric)
         self.__km = None
         try:
             if self._symmetric:
@@ -842,11 +843,11 @@ class RBFKernel():
                 assert self._data1.shape[1] == self._data2.shape[1]
                 linkm = mat(self._data1 * self._data2.T)
                 trnorms1 = []
-                for i in xrange(m):
+                for i in range(m):
                     trnorms1.append((self._data1[i] * self._data1[i].T)[0,0])
                 trnorms1 = mat(trnorms1).T
                 trnorms2 = []
-                for i in xrange(n):
+                for i in range(n):
                     trnorms2.append((self._data2[i] * self._data2[i].T)[0,0])
                 trnorms2 = mat(trnorms2).T
                 self.__km = trnorms1 * mat(np.ones((n, 1), dtype = float64)).T
